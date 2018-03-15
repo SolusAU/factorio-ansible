@@ -1,0 +1,15 @@
+---
+- hosts: local
+
+  tasks:
+    - name: Check for SSH Key
+      local_action: 
+        module: vr_ssh_key
+        name: Andy-PCd
+        ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+        state: present
+      register: result
+        
+    - name: Print SSH Key
+      debug: 
+        var: result.vultr_ssh_key.ssh_key
